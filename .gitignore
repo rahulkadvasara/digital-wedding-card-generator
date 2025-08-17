@@ -1,0 +1,10 @@
+# Environment Variables - KEEP YOUR API KEYS SECURE!
+.env
+
+# Python
+backend/__pycache__/
+backend/*/__pycache__/
+
+# IDE
+.vscode/
+

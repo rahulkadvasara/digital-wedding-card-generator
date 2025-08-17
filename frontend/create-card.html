@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Card - Digital Audio Wedding Cards</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/card.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="user-welcome">
+                    <h1>Create Wedding Card</h1>
+                    <p class="user-greeting">Design your personalized wedding invitation</p>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="dashboard.html" class="nav-link">
+                    <span class="nav-icon">🏠</span>
+                    Dashboard
+                </a>
+                <a href="create-card.html" class="nav-link active">
+                    <span class="nav-icon">➕</span>
+                    Create Card
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <span class="nav-icon">📊</span>
+                    Analytics
+                </a>
+                <a href="#" id="logoutBtn" class="nav-link logout-link">
+                    <span class="nav-icon">🚪</span>
+                    Logout
+                </a>
+            </nav>
+        </header>
+        <main>
+            <form id="cardForm">
+                <div class="form-header">
+                    <h1>Create Your Wedding Card</h1>
+                    <p>Design a personalized audio invitation for your special day</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">
+                        <i class="fas fa-heart"></i>
+                        Wedding Message
+                    </label>
+                    <textarea id="message" placeholder="Enter your personalized wedding message. Use {name} where you want the recipient's name to appear..." required minlength="10" maxlength="1000"></textarea>
+                    <small class="help-text">💡 Tip: Use {name} in your message to personalize it for each recipient</small>
+                    <div class="error-message" id="messageError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-microphone"></i>
+                        Voice Recording
+                    </label>
+                    <div class="recording-section" id="recordingSection">
+                        <div class="recording-controls">
+                            <button type="button" id="recordBtn" class="record-button">
+                                <i class="fas fa-microphone record-icon"></i>
+                                <span class="record-text">Start Recording</span>
+                            </button>
+                            <div class="recording-status" id="recordingStatus">
+                                <div class="status-icon"></div>
+                                <span>Ready to record</span>
+                                <span class="recording-timer" id="recordingTimer" style="display: none;">00:00</span>
+                            </div>
+                        </div>
+                        <div class="recording-instructions" id="recordingInstructions">
+                            Click the microphone button and speak clearly for 10-30 seconds
+                        </div>
+                        <div class="audio-preview-container" id="audioPreviewContainer" style="display: none;">
+                            <div class="audio-preview-label">
+                                <i class="fas fa-volume-up icon"></i>
+                                <span>Your Voice Sample</span>
+                            </div>
+                            <audio id="audioPreview" controls></audio>
+                        </div>
+                    </div>
+                    <small class="help-text">🎵 Record a clear voice sample for AI voice generation</small>
+                    <div class="error-message" id="voiceError"></div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="submitBtn" disabled>
+                        <i class="fas fa-magic"></i>
+                        <span class="submit-text">Create Card</span>
+                        <div class="loading-spinner">
+                            <div class="spinner-sm"></div>
+                            <span>Creating...</span>
+                        </div>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Success Modal -->
+            <div id="successModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <button class="modal-close" onclick="closeModal()">&times;</button>
+                    <div class="modal-header">
+                        <h2>
+                            <span class="success-icon">🎉</span>
+                            Card Created Successfully!
+                        </h2>
+                        <p class="modal-subtitle">Your beautiful wedding card is ready to share</p>
+                    </div>
+                    <div id="cardPreview">
+                        <div class="preview-section">
+                            <div class="preview-label">
+                                <i class="fas fa-heart"></i>
+                                <strong>Your Message:</strong>
+                            </div>
+                            <div id="previewMessage"></div>
+                        </div>
+                        <div id="qrCodeContainer">
+                            <div class="preview-label">
+                                <i class="fas fa-qrcode"></i>
+                                <strong>QR Code:</strong>
+                            </div>
+                            <div class="qr-code-wrapper">
+                                <img id="qrCodeImage" alt="QR Code" />
+                            </div>
+                            <div class="qr-instructions">
+                                <i class="fas fa-share-alt"></i>
+                                Share this QR code with your wedding guests to let them experience your personalized message!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn btn-primary" onclick="downloadQRCode()">
+                            <i class="fas fa-download"></i>
+                            Download QR Code
+                        </button>
+                        <button class="btn btn-secondary" onclick="goToDashboard()">
+                            <i class="fas fa-home"></i>
+                            Go to Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Overlay -->
+            <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+                <div class="loading-content">
+                    <div class="spinner"></div>
+                    <h3>Creating Your Wedding Card</h3>
+                    <p>Please wait while we work our magic...</p>
+                    <div class="progress-container">
+                        <div class="progress-text">Generating AI voice and QR code</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <small>This may take a few moments while we generate your AI voice</small>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/card-creator.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Digital Audio Wedding Cards</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="user-welcome">
+                    <h1>Your Wedding Cards</h1>
+                    <p id="userInfo" class="user-greeting">Welcome back!</p>
+                </div>
+                <div class="header-actions">
+                    <button id="refreshBtn" class="btn btn-secondary" title="Refresh cards">
+                        <i class="fas fa-sync-alt refresh-icon"></i>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="dashboard.html" class="nav-link active">
+                    <i class="fas fa-home nav-icon"></i>
+                    Dashboard
+                </a>
+                <a href="create-card.html" class="nav-link">
+                    <i class="fas fa-plus nav-icon"></i>
+                    Create Card
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-bar nav-icon"></i>
+                    Analytics
+                </a>
+                <a href="#" id="logoutBtn" class="nav-link logout-link">
+                    <i class="fas fa-sign-out-alt nav-icon"></i>
+                    Logout
+                </a>
+            </nav>
+        </header>
+        <main>
+            <div class="dashboard-content">
+                <div class="dashboard-summary">
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-envelope-heart"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3 id="totalCards">0</h3>
+                            <p>Total Cards</p>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3 id="totalViews">0</h3>
+                            <p>Total Views</p>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="summary-info">
+                            <h3 id="uniqueViewers">0</h3>
+                            <p>Unique Viewers</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cards-section">
+                    <div class="section-header">
+                        <h2>Your Cards</h2>
+                        <a href="create-card.html" class="btn btn-primary">
+                            <i class="fas fa-plus nav-icon"></i>
+                            Create New Card
+                        </a>
+                    </div>
+                    <div id="cardsList" class="cards-grid">
+                        <!-- Cards will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Notification container -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

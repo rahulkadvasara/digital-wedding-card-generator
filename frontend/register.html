@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Audio Wedding Cards - Register</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-form register-form">
+            <div class="login-header">
+                <div class="logo">💌</div>
+                <h2>Create Your Account</h2>
+                <p class="login-subtitle">Join us to create beautiful wedding cards</p>
+            </div>
+            
+            <div id="registerError" class="login-error" style="display: none;"></div>
+            <div id="registerSuccess" class="login-success" style="display: none;"></div>
+            
+            <form id="registerForm">
+                <div class="input-group">
+                    <input type="text" id="regUsername" placeholder="Choose a username" required>
+                    <i class="fas fa-user input-icon"></i>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" id="regPassword" placeholder="Create a password" required>
+                    <i class="fas fa-lock input-icon"></i>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                    <i class="fas fa-check-circle input-icon"></i>
+                </div>
+                
+                <button type="submit" id="registerBtn">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account
+                </button>
+            </form>
+            
+            <div class="login-divider">
+                <span>or</span>
+            </div>
+            
+            <div class="register-link">
+                <p>Already have an account? <a href="#" id="loginLink">Sign in here</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

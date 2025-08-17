@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Card - Digital Audio Wedding Cards</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/card.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="wedding-card-container">
+        <div class="decorative-elements">
+            <div class="heart heart-1">💕</div>
+            <div class="heart heart-2">💖</div>
+            <div class="heart heart-3">💝</div>
+            <div class="flower flower-1">🌸</div>
+            <div class="flower flower-2">🌺</div>
+            <div class="flower flower-3">🌹</div>
+        </div>
+        
+        <main>
+            <div id="nameInput" class="card-section name-input-section">
+                <div class="invitation-header">
+                    <div class="invitation-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h1>You've Received a Wedding Invitation!</h1>
+                    <p class="invitation-subtitle">A special message awaits you</p>
+                    <div class="invitation-decoration">
+                        <span class="decoration-line"></span>
+                        <i class="fas fa-heart decoration-heart"></i>
+                        <span class="decoration-line"></span>
+                    </div>
+                </div>
+                
+                <form id="nameForm" class="name-form">
+                    <div class="form-group">
+                        <label for="recipientName">
+                            <i class="fas fa-user"></i>
+                            Please enter your name
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="text" id="recipientName" placeholder="Enter your full name" required>
+                            <i class="fas fa-signature input-decoration"></i>
+                        </div>
+                        <small class="help-text">This will personalize your wedding invitation</small>
+                    </div>
+                    <button type="submit" class="view-card-btn">
+                        <i class="fas fa-gift"></i>
+                        <span>View My Invitation</span>
+                        <div class="btn-shimmer"></div>
+                    </button>
+                </form>
+            </div>
+            
+            <div id="cardDisplay" class="card-section card-display-section" style="display: none;">
+                <div class="card-content">
+                    <div class="card-header-decoration">
+                        <div class="decoration-border"></div>
+                        <div class="wedding-rings">💍</div>
+                        <div class="decoration-border"></div>
+                    </div>
+                    
+                    <h1 class="card-title">
+                        <span class="title-decoration">✨</span>
+                        Wedding Invitation
+                        <span class="title-decoration">✨</span>
+                    </h1>
+                    
+                    <div id="personalizedMessage" class="personalized-message">
+                        <div class="message-decoration">
+                            <i class="fas fa-quote-left quote-left"></i>
+                            <div class="message-content"></div>
+                            <i class="fas fa-quote-right quote-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="audio-section">
+                        <div class="audio-header">
+                            <i class="fas fa-music audio-icon"></i>
+                            <h3 class="audio-label">Personal Message for You</h3>
+                        </div>
+                        <div class="audio-player-wrapper">
+                            <audio id="audioMessage" controls preload="metadata">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="audio-visualizer">
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                        </div>
+                        <p class="audio-instructions">
+                            <i class="fas fa-volume-up"></i>
+                            Click play to hear your personalized message
+                        </p>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <div class="footer-decoration">
+                            <span class="decoration-line"></span>
+                            <i class="fas fa-heart decoration-heart"></i>
+                            <span class="decoration-line"></span>
+                        </div>
+                        <p class="footer-message">With love and best wishes</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Loading State -->
+            <div id="loadingCard" class="loading-card" style="display: none;">
+                <div class="loading-content">
+                    <div class="spinner"></div>
+                    <h3>Preparing Your Invitation</h3>
+                    <p>Creating your personalized message...</p>
+                </div>
+            </div>
+            
+            <!-- Error State -->
+            <div id="errorCard" class="error-card" style="display: none;">
+                <div class="error-content">
+                    <i class="fas fa-exclamation-triangle error-icon"></i>
+                    <h3>Oops! Something went wrong</h3>
+                    <p id="errorMessage">We couldn't load your invitation. Please try again.</p>
+                    <button onclick="location.reload()" class="btn btn-primary">
+                        <i class="fas fa-redo"></i>
+                        Try Again
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/utils.js"></script>
+    <script src="js/card-viewer.js"></script>
+</body>
+</html>

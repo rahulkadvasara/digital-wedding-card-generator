@@ -1,0 +1,30 @@
+# FastAPI and server dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# File handling
+aiofiles==23.2.1
+
+# QR code generation
+qrcode[pil]==7.4.2
+
+# HTTP client for GenAI APIs
+httpx==0.25.2
+
+# Data validation and serialization
+pydantic==2.5.0
+
+# JWT authentication
+PyJWT==2.8.0
+python-jose[cryptography]==3.3.0
+
+# CORS middleware (built into FastAPI)
+# python-cors not needed - using FastAPI's built-in CORS
+
+# Environment variables
+python-dotenv==1.0.0
+
+# Development dependencies
+pytest==7.4.3
+pytest-asyncio==0.21.1
