@@ -1,15 +1,13 @@
 # Digital Audio Wedding Cards
 
-A full-stack web application for creating, managing, and sharing personalized digital wedding cards with AI-generated audio messages and analytics.
+A simple web application for creating personalized digital wedding cards with AI-generated audio messages.
 
 ## Features
 
-- **User Authentication:** Secure registration and login with JWT-based authentication.
-- **Card Creation:** Users can create wedding cards with custom messages and optional voice samples.
+- **User Authentication:** Simple registration and login system.
+- **Card Creation:** Create wedding cards with custom messages and voice samples.
 - **AI Voice Generation:** Clone user voices and synthesize personalized audio messages using ElevenLabs API.
-- **Analytics:** Track card views and engagement with detailed analytics.
-- **QR Code Generation:** Generate QR codes for easy sharing of cards.
-- **Frontend:** Responsive HTML/CSS/JS frontend for user interaction.
+- **Card Sharing:** Share cards via direct links.
 
 ## Project Structure
 
@@ -24,23 +22,19 @@ A full-stack web application for creating, managing, and sharing personalized di
 │   ├── models/
 │   ├── routes/
 │   ├── services/
-│   ├── utils/ 
-├──data/
-│   ├── analytics.json
+│   └── utils/ 
+├── data/
 │   ├── cards.json
 │   ├── users.json
-│   ├── voice_models.json
-│   ├── audio/
-│   └── qr_codes/
-├── frontend/
-│   ├── analytics.html
-│   ├── create-card.html
-│   ├── dashboard.html
-│   ├── index.html
-│   ├── register.html
-│   ├── view-card.html
-│   ├── css/
-│   └── js/
+│   └── audio/
+└── frontend/
+    ├── create-card.html
+    ├── dashboard.html
+    ├── index.html
+    ├── register.html
+    ├── view-card.html
+    ├── css/
+    └── js/
 ```
 
 ## Getting Started
@@ -89,9 +83,6 @@ A full-stack web application for creating, managing, and sharing personalized di
 - **Authentication:** `/auth/login`, `/auth/register`
 - **Cards:** `/cards/create`, `/cards/{card_id}`, `/cards/my-cards`
 - **Voice:** `/voice/clone`, `/voice/synthesize`
-- **Analytics:** `/analytics/track`, `/analytics/card/{card_id}`
-
-See the backend route files for detailed API documentation.
 
 ## Development
 

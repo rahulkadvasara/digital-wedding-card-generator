@@ -66,12 +66,7 @@ class DashboardService {
                     <button class="btn btn-secondary" onclick="dashboardService.viewCard('${card.id}')">
                         View Card
                     </button>
-                    <button class="btn btn-info" onclick="dashboardService.showQRCode('${card.id}')">
-                        Show QR Code
-                    </button>
-                    <button class="btn btn-primary" onclick="dashboardService.viewAnalytics('${card.id}')">
-                        Analytics
-                    </button>
+
                     <button class="btn btn-warning" onclick="dashboardService.editCard('${card.id}')">
                         Edit
                     </button>
@@ -137,72 +132,7 @@ class DashboardService {
         window.open(`view-card.html?id=${cardId}`, '_blank');
     }
 
-    async showQRCode(cardId) {
-        try {
-            const card = this.userCards.find(c => c.id === cardId);
-            if (!card) {
-                this.showError('Card not found');
-                return;
-            }
 
-            // Create modal to show QR code
-            const modal = this.createModal('QR Code', `
-                <div class="qr-code-container">
-                    <p>Share this QR code with your friends to let them view your wedding card:</p>
-                    <div class="qr-code-display">
-                        <img src="${this.baseUrl}/cards/${cardId}/qr-code" alt="QR Code for Card ${cardId}" />
-                    </div>
-                    <p class="qr-instructions">
-                        Friends can scan this code with their phone camera to view your personalized wedding invitation.
-                    </p>
-                    <div class="qr-actions">
-                        <button class="btn btn-primary" onclick="dashboardService.downloadQRCode('${cardId}')">
-                            Download QR Code
-                        </button>
-                        <button class="btn btn-secondary" onclick="dashboardService.copyCardLink('${cardId}')">
-                            Copy Link
-                        </button>
-                    </div>
-                </div>
-            `);
-
-            document.body.appendChild(modal);
-        } catch (error) {
-            console.error('Failed to show QR code:', error);
-            this.showError('Failed to load QR code');
-        }
-    }
-
-    async downloadQRCode(cardId) {
-        try {
-            const link = document.createElement('a');
-            link.href = `${this.baseUrl}/cards/${cardId}/qr-code`;
-            link.download = `wedding-card-${cardId}-qr.png`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            this.showSuccess('QR code downloaded successfully!');
-        } catch (error) {
-            console.error('Failed to download QR code:', error);
-            this.showError('Failed to download QR code');
-        }
-    }
-
-    async copyCardLink(cardId) {
-        try {
-            const cardUrl = `${window.location.origin}/view-card.html?id=${cardId}`;
-            await navigator.clipboard.writeText(cardUrl);
-            this.showSuccess('Card link copied to clipboard!');
-        } catch (error) {
-            console.error('Failed to copy link:', error);
-            this.showError('Failed to copy link to clipboard');
-        }
-    }
-
-    async viewAnalytics(cardId) {
-        // Navigate to analytics page with card filter
-        window.location.href = `analytics.html?card=${cardId}`;
-    }
 
     async editCard(cardId) {
         const card = this.userCards.find(c => c.id === cardId);
@@ -271,7 +201,7 @@ class DashboardService {
             <div class="delete-confirmation">
                 <div class="warning-icon">⚠️</div>
                 <h3>Are you sure you want to delete this card?</h3>
-                <p>This action cannot be undone. The card and all its analytics data will be permanently removed.</p>
+                <p>This action cannot be undone. The card will be permanently removed.</p>
                 <div class="card-preview">
                     <strong>Card Message:</strong>
                     <div class="message-preview">${this.truncateMessage(card.message, 150)}</div>
@@ -374,8 +304,8 @@ class DashboardService {
         const totalCards = this.userCards.length;
         const totalViews = this.userCards.reduce((sum, card) => sum + (card.views || 0), 0);
         
-        // For unique viewers, we'd need analytics data, so for now we'll estimate
-        const uniqueViewers = Math.floor(totalViews * 0.8); // Rough estimate
+        // Simple estimate for unique viewers
+        const uniqueViewers = Math.floor(totalViews * 0.8);
         
         // Update summary cards
         const totalCardsElement = document.getElementById('totalCards');

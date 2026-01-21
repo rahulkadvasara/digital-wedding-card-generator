@@ -1,39 +1,16 @@
 [
   {
-    "id": "user_6425d552",
-    "username": "test",
-    "password": "123456",
-    "created_at": "2025-08-06T12:47:02.608337",
-    "cards": []
-  },
-  {
-    "id": "user_8b9291b9",
-    "username": "testuser",
-    "password": "testpass123",
-    "created_at": "2025-08-06T13:01:59.671107",
-    "cards": []
-  },
-  {
-    "id": "user_44ef6e55",
+    "id": "user_aa50eb34",
     "username": "test1",
     "password": "test123",
-    "created_at": "2025-08-12T11:37:32.939072",
+    "created_at": "2025-09-08T12:19:59.500774",
     "cards": []
   },
   {
-    "id": "user_f797d865",
-    "username": "test_voice_user",
+    "id": "user_90e7940f",
+    "username": "testuser123",
     "password": "testpass123",
-    "created_at": "2025-08-17T11:42:22.204382",
-    "cards": [],
-    "voice_profile_id": null
-  },
-  {
-    "id": "user_e6644052",
-    "username": "test_core_user",
-    "password": "testpass123",
-    "created_at": "2025-08-17T11:44:46.554118",
-    "cards": [],
-    "voice_profile_id": null
+    "created_at": "2025-09-09T12:16:12.545180",
+    "cards": []
   }
 ]

@@ -84,28 +84,7 @@ class CardViewer {
         return message.replace(/\{name\}/g, name);
     }
 
-    async trackView(cardId, viewerName) {
-        try {
-            const response = await fetch(`${this.baseUrl}/analytics/track`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    card_id: cardId,
-                    viewer_name: viewerName
-                })
-            });
 
-            if (!response.ok) {
-                console.warn('Failed to track view:', response.statusText);
-            }
-            
-        } catch (error) {
-            console.warn('Error tracking view:', error);
-            // Don't throw error - tracking is not critical for user experience
-        }
-    }
 
     async playAudio(audioPath, recipientName = null) {
         try {
@@ -297,8 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     audioSection.appendChild(audioNote);
                 }
                 
-                // Track the view (non-blocking)
-                cardViewer.trackView(cardViewer.cardId, recipientName);
+
                 
             } catch (error) {
                 console.error('Error loading card:', error);

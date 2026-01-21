@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
     Utils.addOfflineHandler();
 
     // Check authentication on protected pages
-    const protectedPages = ['dashboard.html', 'create-card.html', 'analytics.html'];
+    const protectedPages = ['dashboard.html', 'create-card.html'];
     const currentPage = window.location.pathname.split('/').pop();
     
     if (protectedPages.includes(currentPage)) {

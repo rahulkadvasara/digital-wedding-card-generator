@@ -190,16 +190,8 @@ class Utils {
         
         if (!password) {
             errors.push('Password is required');
-        } else {
-            if (password.length < 6) {
-                errors.push('Password must be at least 6 characters long');
-            }
-            if (password.length > 128) {
-                errors.push('Password must be less than 128 characters');
-            }
-            if (!/[a-zA-Z]/.test(password)) {
-                errors.push('Password must contain at least one letter');
-            }
+        } else if (password.length < 6) {
+            errors.push('Password must be at least 6 characters long');
         }
         
         return {
@@ -213,16 +205,8 @@ class Utils {
         
         if (!username) {
             errors.push('Username is required');
-        } else {
-            if (username.length < 3) {
-                errors.push('Username must be at least 3 characters long');
-            }
-            if (username.length > 50) {
-                errors.push('Username must be less than 50 characters');
-            }
-            if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
-                errors.push('Username can only contain letters, numbers, underscores, and hyphens');
-            }
+        } else if (username.length < 3) {
+            errors.push('Username must be at least 3 characters long');
         }
         
         return {
@@ -236,19 +220,8 @@ class Utils {
         
         if (!message || !message.trim()) {
             errors.push('Message is required');
-        } else {
-            const trimmedMessage = message.trim();
-            if (trimmedMessage.length < 10) {
-                errors.push('Message must be at least 10 characters long');
-            }
-            if (trimmedMessage.length > 1000) {
-                errors.push('Message must be less than 1000 characters');
-            }
-            // Check for potentially harmful content
-            const suspiciousPatterns = [/<script/i, /javascript:/i, /on\w+=/i];
-            if (suspiciousPatterns.some(pattern => pattern.test(trimmedMessage))) {
-                errors.push('Message contains invalid content');
-            }
+        } else if (message.trim().length < 10) {
+            errors.push('Message must be at least 10 characters long');
         }
         
         return {
@@ -262,18 +235,6 @@ class Utils {
         
         if (!name || !name.trim()) {
             errors.push('Name is required');
-        } else {
-            const trimmedName = name.trim();
-            if (trimmedName.length < 1) {
-                errors.push('Name cannot be empty');
-            }
-            if (trimmedName.length > 100) {
-                errors.push('Name must be less than 100 characters');
-            }
-            // Basic sanitization check
-            if (/<[^>]*>/.test(trimmedName)) {
-                errors.push('Name contains invalid characters');
-            }
         }
         
         return {

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Voice API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🎤 Test Voice Generation API</h1>
+
+    <form id="voiceForm">
+        <div class="form-group">
+            <label for="message">Message (use {name} for personalization):</label>
+            <textarea id="message" rows="3"
+                placeholder="Hello {name}, welcome to our wedding celebration!">Hello {name}, welcome to our wedding celebration!</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="recipientName">Recipient Name:</label>
+            <input type="text" id="recipientName" placeholder="John" value="John">
+        </div>
+
+        <div class="form-group">
+            <label for="voiceFile">Voice Sample (audio file):</label>
+            <input type="file" id="voiceFile" accept="audio/*" required>
+        </div>
+
+        <div class="form-group">
+            <label for="token">Auth Token (register/login first to get token):</label>
+            <input type="text" id="token" placeholder="Bearer token from login/register">
+        </div>
+
+        <button type="submit">🎵 Generate Voice Message</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('voiceForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>⏳ Generating voice message...</p>';
+
+            const formData = new FormData();
+            formData.append('message', document.getElementById('message').value);
+            formData.append('recipient_name', document.getElementById('recipientName').value);
+            formData.append('voice_sample', document.getElementById('voiceFile').files[0]);
+
+            const token = document.getElementById('token').value;
+
+            try {
+                const response = await fetch('http://localhost:8000/voice/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>✅ Success!</h3>
+                            <p><strong>Message:</strong> ${data.message}</p>
+                            <p><strong>Audio Path:</strong> ${data.audio_path}</p>
+                            <p><strong>Recipient:</strong> ${data.recipient_name}</p>
+                            <audio controls>
+                                <source src="http://localhost:8000/${data.audio_path}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            <h3>❌ Error</h3>
+                            <p>${data.detail || 'Unknown error occurred'}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        <h3>❌ Network Error</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+
+</html>

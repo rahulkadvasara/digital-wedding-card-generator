@@ -343,19 +343,20 @@ class CardCreator {
                 throw new Error('You are offline. Please check your internet connection and try again.');
             }
             
-            // Create FormData for multipart/form-data request
+            // Create FormData for voice generation endpoint
             const formData = new FormData();
             formData.append('message', message);
-            formData.append('voice_file', voiceBlob, 'voice_sample.webm');
+            formData.append('recipient_name', 'Guest'); // Default recipient name
+            formData.append('voice_sample', voiceBlob, 'voice_sample.webm');
             
             const token = localStorage.getItem('authToken');
             if (!token) {
                 throw new Error('Authentication required. Please log in again.');
             }
             
-            // Use enhanced file upload with progress tracking
+            // Use voice generation endpoint instead of card creation
             const result = await Utils.makeFileUploadRequest(
-                `${this.baseUrl}/cards/create`,
+                `${this.baseUrl}/voice/generate`,
                 formData,
                 (progress) => {
                     // Update progress indicator if available
@@ -366,11 +367,22 @@ class CardCreator {
                 }
             );
             
+            // After voice generation, create the card
+            const cardData = {
+                message: message
+            };
+            
+            const cardResult = await Utils.makeRequest(`${this.baseUrl}/cards/create`, {
+                method: 'POST',
+                body: JSON.stringify(cardData)
+            });
+            
             this.hideLoadingOverlay();
             
             return {
                 success: true,
-                card: result
+                card: cardResult,
+                voice: result
             };
             
         } catch (error) {
@@ -395,24 +407,9 @@ class CardCreator {
     async displaySuccessModal(card) {
         const modal = document.getElementById('successModal');
         const previewMessage = document.getElementById('previewMessage');
-        const qrCodeImage = document.getElementById('qrCodeImage');
         
         // Display the message
         previewMessage.textContent = card.message;
-        
-        // Load and display QR code
-        try {
-            const qrResponse = await fetch(`${this.baseUrl}/cards/${card.id}/qr-code`);
-            if (qrResponse.ok) {
-                const qrBlob = await qrResponse.blob();
-                const qrUrl = URL.createObjectURL(qrBlob);
-                qrCodeImage.src = qrUrl;
-                qrCodeImage.dataset.cardId = card.id;
-            }
-        } catch (error) {
-            console.error('Error loading QR code:', error);
-            qrCodeImage.alt = 'QR code could not be loaded';
-        }
         
         modal.style.display = 'flex';
     }
@@ -422,19 +419,6 @@ class CardCreator {
 const cardCreator = new CardCreator();
 
 // Global functions for modal actions
-function downloadQRCode() {
-    const qrCodeImage = document.getElementById('qrCodeImage');
-    const cardId = qrCodeImage.dataset.cardId;
-    
-    if (qrCodeImage.src) {
-        const link = document.createElement('a');
-        link.href = qrCodeImage.src;
-        link.download = `wedding-card-${cardId}-qr.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-}
 
 function goToDashboard() {
     window.location.href = 'dashboard.html';
